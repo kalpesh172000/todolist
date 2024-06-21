@@ -1,13 +1,15 @@
 import { useState } from 'react';
+import Item from './Item';
 
 function List() {
+    let count = -1;
     const [inputText, setInputText] = useState(""); // Create a state variable to store the input text
     const [items, setItems] = useState([]);
 
     function addItems(event){
         event.preventDefault();
         const newItem = event.target.elements.itemInput.value;
-        setItems(oldItems =>[ ...oldItems, <li>{newItem}</li>])
+        setItems(oldItems =>[ ...oldItems, newItem])
         setInputText("");
     }
 
@@ -29,7 +31,9 @@ function List() {
             </div>
             <div>
                 <ul>
-                    {items}
+                    {
+                        items.map(item => { count++; return <Item key={count} item={item} />})
+                    }
                 </ul>
             </div>
         </form>
